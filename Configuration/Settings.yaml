@@ -1,0 +1,30 @@
+Neos:
+  Flow:
+    security:
+      authentication:
+        providers:
+          'Neos.Neos:Backend':
+            requestPatterns:
+              'CodeQ.RecaptchaAuth:NeosBackend':
+                pattern: CodeQ\RecaptchaAuth\Security\NeosRequestPattern
+          RecaptchaProvider:
+            provider: CodeQ\RecaptchaAuth\Provider\RecaptchaProvider
+            requestPatterns:
+              'Flowpack.Neos.FrontendLogin:NeosFrontend':
+                pattern: CodeQ\RecaptchaAuth\Security\NeosRequestPattern
+                patternOptions:
+                  matchFrontend: true
+            providerOptions:
+              # Go to Recaptcha https://www.google.com/recaptcha/admin
+              # Get your site-specific credentials for version 3
+              # Uses Invisible Recaptcha https://developers.google.com/recaptcha/docs/invisible
+              websiteKey: 'xxx'
+              secretKey: 'xxx'
+              authenticateRoles:
+                - CodeQ.RecaptchaAuth:IdentifiedVisitor
+
+  Neos:
+    fusion:
+      autoInclude:
+        CodeQ.RecaptchaAuth: true
+

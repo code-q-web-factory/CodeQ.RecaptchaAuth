@@ -1,0 +1,11 @@
+prototype(Neos.Neos:Page) {
+    bodyTag.attributes {
+        data-is-logged-in = ${Security.hasRole('CodeQ.RecaptchaAuth:IdentifiedVisitor')}
+        data-recaptcha-website-key = ${Configuration.setting('Neos.Flow.security.authentication.providers.RecaptchaProvider.providerOptions.websiteKey')}
+    }
+    body.javascripts.reCaptcha = Neos.Fusion:Tag {
+        tagName = 'script'
+        attributes.src = ${'//www.google.com/recaptcha/api.js?render=' + Configuration.setting('Neos.Flow.security.authentication.providers.RecaptchaProvider.providerOptions.websiteKey')}
+        @position = 'end'
+    }
+}
